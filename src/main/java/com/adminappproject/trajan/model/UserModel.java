@@ -1,78 +1,59 @@
 package com.adminappproject.trajan.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_txn")
-public class UserModel extends BaseModel{
+@Table(name = "ref_users")
+public class UserModel extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column
-	private String firstName;
+	@Column(name="username")
+	private String username;
 
-	@Column
-	private String middleName;
+	@Column(name="password")
+	private String password;
 
-	@Column
-	private String lastName;
+	@Column(name="alias")
+	private String alias;
 
-	@Column
-	private String userCode;
+	@Column(name="ref_user_dtl_id")
+	private Long refUserDtl;
 
-	@Column
-	private String userLevel;
-
-	@Column
-	private String userRole;
-
-	public String getFirstName() {
-		return firstName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getMiddleName() {
-		return middleName;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getAlias() {
+		return alias;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
-	public String getUserCode() {
-		return userCode;
+	public Long getRefUserDtl() {
+		return refUserDtl;
 	}
 
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+	public void setRefUserDtl(Long refUserDtl) {
+		this.refUserDtl = refUserDtl;
 	}
 
-	public String getUserLevel() {
-		return userLevel;
-	}
-
-	public void setUserLevel(String userLevel) {
-		this.userLevel = userLevel;
-	}
-
-	public String getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
 }

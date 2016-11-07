@@ -3,29 +3,38 @@ package com.adminappproject.trajan.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 
-public class BaseModel implements Serializable{
+@MappedSuperclass
+public abstract class BaseModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@Column
+	@Column(name="created_date")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime createdDate;
 	
-	@Column
+	@Column(name="created_by")
 	private String createdBy;
 	
-	@Column
+	@Column(name="updated_date")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime updatedDate;
-	
-	@Column
+
+	@Column(name="updated_by")
 	private String updatedBy;
 
 	public Long getId() {
