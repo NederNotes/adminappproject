@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.adminappproject.trajan"})
-@EntityScan("com.adminappproject.trajan.model")
 @EnableJpaRepositories("com.adminappproject.trajan.repo")
+@EntityScan("com.adminappproject.trajan.model")
 public class MainInstanceInitiator {
 	public static void main(String[] args) {
         SpringApplication.run(MainInstanceInitiator.class, args);
