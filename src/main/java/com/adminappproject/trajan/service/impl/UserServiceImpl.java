@@ -3,6 +3,7 @@ package com.adminappproject.trajan.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.adminappproject.trajan.dto.UserDTO;
 import com.adminappproject.trajan.model.UserModel;
 import com.adminappproject.trajan.repo.UserRepo;
 import com.adminappproject.trajan.service.UserService;
@@ -20,6 +21,11 @@ public class UserServiceImpl implements UserService{
 		UserModel userModel = userRepo.findOne(id);
 		
 		return userModel.getAlias();
+	}
+
+	@Override
+	public void saveUser(UserDTO userDTO) {
+		
 	}
 
 }

@@ -13,7 +13,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 @Entity
-@Table(name = "ref_users_dtl")
+@Table(name = "ref_user_dtl")
 public class UserDtlModel implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -85,5 +85,4 @@ public class UserDtlModel implements Serializable{
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
-	
 }

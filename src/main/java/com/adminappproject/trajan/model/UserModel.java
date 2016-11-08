@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,8 +23,9 @@ public class UserModel extends BaseModel implements Serializable{
 	@Column(name="alias")
 	private String alias;
 
-	@Column(name="ref_user_dtl_id")
-	private Long refUserDtl;
+	@OneToOne
+	@JoinColumn(name="ref_user_dtl_id")
+	private UserDtlModel refUserDtl;
 
 	public String getUsername() {
 		return username;
@@ -48,11 +51,11 @@ public class UserModel extends BaseModel implements Serializable{
 		this.alias = alias;
 	}
 
-	public Long getRefUserDtl() {
+	public UserDtlModel getRefUserDtl() {
 		return refUserDtl;
 	}
 
-	public void setRefUserDtl(Long refUserDtl) {
+	public void setRefUserDtl(UserDtlModel refUserDtl) {
 		this.refUserDtl = refUserDtl;
 	}
 
