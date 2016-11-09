@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.joda.time.DateTime;
+
 @Entity
 @Table(name = "ref_users")
 public class UserModel extends BaseModel implements Serializable {
@@ -26,6 +28,15 @@ public class UserModel extends BaseModel implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ref_user_dtl_id")
 	private UserDtlModel userDtl;
+	
+	public UserModel updateToModel(String updatedBy, DateTime updatedDate, String userName, String password, String alias) {
+		super.setUpdatedBy(updatedBy);
+		super.setUpdatedDate(updatedDate);
+		this.username = userName;
+		this.password = password;
+		this.alias = alias;
+		return this;
+	}
 
 	public String getUsername() {
 		return username;

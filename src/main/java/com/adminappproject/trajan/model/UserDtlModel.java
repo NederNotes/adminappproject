@@ -37,6 +37,15 @@ public class UserDtlModel implements Serializable{
 	@Column(name="birth_date")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate birthDate;
+	
+	public UserDtlModel updateToModel(String firstName, String middleName, String lastName, String gender, LocalDate birthDate) {
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.birthDate = birthDate;
+		return this;
+	}
 
 	public Long getId() {
 		return id;
