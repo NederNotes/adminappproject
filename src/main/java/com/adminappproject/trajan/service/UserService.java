@@ -8,7 +8,7 @@ import com.adminappproject.trajan.dto.UserDTO;
 @Service
 public interface UserService {
 
-	public String getUser();
+	public UserDTO getUserById(Long userId);
 	public void saveUser(UserDTO userDTO);
 	
 }

@@ -10,22 +10,22 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ref_users")
-public class UserModel extends BaseModel implements Serializable{
+public class UserModel extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name="username")
+
+	@Column(name = "username")
 	private String username;
 
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
 
-	@Column(name="alias")
+	@Column(name = "alias")
 	private String alias;
 
 	@OneToOne
-	@JoinColumn(name="ref_user_dtl_id")
-	private UserDtlModel refUserDtl;
+	@JoinColumn(name = "ref_user_dtl_id")
+	private UserDtlModel userDtl;
 
 	public String getUsername() {
 		return username;
@@ -51,12 +51,12 @@ public class UserModel extends BaseModel implements Serializable{
 		this.alias = alias;
 	}
 
-	public UserDtlModel getRefUserDtl() {
-		return refUserDtl;
+	public UserDtlModel getUserDtl() {
+		return userDtl;
 	}
 
-	public void setRefUserDtl(UserDtlModel refUserDtl) {
-		this.refUserDtl = refUserDtl;
+	public void setUserDtl(UserDtlModel userDtl) {
+		this.userDtl = userDtl;
 	}
 
 }
