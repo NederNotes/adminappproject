@@ -1,17 +1,21 @@
 package com.adminappproject.trajan.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
 
 @Entity
-@Table(name = "ref_users")
+@Table(name = "ref_user")
 public class UserModel extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,8 +32,13 @@ public class UserModel extends BaseModel implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ref_user_dtl_id")
 	private UserDtlModel userDtl;
-	
-	public UserModel updateToModel(String updatedBy, DateTime updatedDate, String userName, String password, String alias) {
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ref_user_has_ref_role", joinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_user_id", referencedColumnName = "id"))
+	private List<UserRoleModel> roles;
+
+	public UserModel updateToModel(String updatedBy, DateTime updatedDate, String userName, String password,
+			String alias) {
 		super.setUpdatedBy(updatedBy);
 		super.setUpdatedDate(updatedDate);
 		this.username = userName;
@@ -70,4 +79,12 @@ public class UserModel extends BaseModel implements Serializable {
 		this.userDtl = userDtl;
 	}
 
+	public List<UserRoleModel> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<UserRoleModel> roles) {
+		this.roles = roles;
+	}
+	
 }

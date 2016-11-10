@@ -1,5 +1,7 @@
 package com.adminappproject.trajan.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDTO extends BaseDTO {
@@ -15,6 +17,9 @@ public class UserDTO extends BaseDTO {
 
 	@JsonProperty("userDtl")
 	private UserDtlDTO userDtl;
+
+	@JsonProperty("roles")
+	private List<UserRoleDTO> roles;
 
 	public String getUsername() {
 		return username;
@@ -46,6 +51,14 @@ public class UserDTO extends BaseDTO {
 
 	public void setUserDtl(UserDtlDTO userDtl) {
 		this.userDtl = userDtl;
+	}
+
+	public List<UserRoleDTO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<UserRoleDTO> roles) {
+		this.roles = roles;
 	}
 
 }
