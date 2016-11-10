@@ -2,6 +2,8 @@ package com.adminappproject.trajan.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.adminappproject.trajan.dto.UserDTO;
@@ -51,6 +53,12 @@ public class UserServiceImpl implements UserService {
 				userDTO.getUserDtl().getLastName(), userDTO.getUserDtl().getGender(),
 				userDTO.getUserDtl().getBirthDate());
 		return userModel;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<UserDTO> getUsers(Pageable pageable) {
+		return modelMapper.map(userRepo.findAll(pageable), Page.class);
 	}
 
 }

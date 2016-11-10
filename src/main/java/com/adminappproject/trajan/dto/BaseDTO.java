@@ -2,7 +2,6 @@ package com.adminappproject.trajan.dto;
 
 import org.joda.time.DateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BaseDTO {
