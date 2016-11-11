@@ -36,7 +36,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@Override
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-		logger.info("Get user by Id : {}", userDTO);
+		logger.info("Create user: {}", userDTO);
 		userService.saveUser(userDTO);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	}
@@ -44,7 +44,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@Override
 	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
 	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable("userId") Long userId) {
-		logger.info("Get user by Id : {}", userId, userDTO);
+		logger.info("Update user : {}", userId, userDTO);
 		userService.updateUser(userDTO, userId);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	}
@@ -52,7 +52,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@Override
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Page<UserDTO> getUsers(Pageable pageable) {
-		logger.info("Get users by page : {}", pageable);
+		logger.info("Fetch users by page : {}", pageable);
 		return userService.getUsers(pageable);
 	}
 }

@@ -46,6 +46,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<UserDTO> getUsers(Pageable pageable) {
+		return modelMapper.map(userRepo.findAll(pageable), Page.class);
+	}
+	
 	private UserModel updateDataDtoToModel(UserDTO userDTO, UserModel userModel) {
 		userModel.updateToModel(userDTO.getUpdatedBy(), userDTO.getUpdatedDate(), userDTO.getUsername(),
 				userDTO.getPassword(), userDTO.getAlias());
@@ -53,12 +59,6 @@ public class UserServiceImpl implements UserService {
 				userDTO.getUserDtl().getLastName(), userDTO.getUserDtl().getGender(),
 				userDTO.getUserDtl().getBirthDate());
 		return userModel;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Page<UserDTO> getUsers(Pageable pageable) {
-		return modelMapper.map(userRepo.findAll(pageable), Page.class);
 	}
 
 }
