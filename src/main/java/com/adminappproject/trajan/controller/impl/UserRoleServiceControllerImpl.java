@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,21 +29,21 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 	
 	@Override
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<UserRoleDTO> getUserRoleById(@RequestParam("userRoleId") Long userRoleId) {
+	public ResponseEntity<UserRoleDTO> getById(@RequestParam("userRoleId") Long userRoleId) {
 		logger.info("Get user role by Id : {}", userRoleId);
 		return new ResponseEntity<UserRoleDTO>(userRoleService.getUserRoleById(userRoleId), HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<UserRoleDTO> createUserRole(@RequestBody UserRoleDTO userRoleDTO) {
+	public ResponseEntity<UserRoleDTO> create(@RequestBody UserRoleDTO userRoleDTO, BindingResult result) {
 		logger.info("Create user role: {}", userRoleDTO);
 		userRoleService.saveRole(userRoleDTO);
 		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
 	}
 	@Override
 	@RequestMapping(value = "/{userRoleId}", method = RequestMethod.PUT)
-	public ResponseEntity<UserRoleDTO> updateUserRole(@RequestBody UserRoleDTO userRoleDTO, @PathVariable("userRoleId") Long userRoleId) {
+	public ResponseEntity<UserRoleDTO> update(@RequestBody UserRoleDTO userRoleDTO, @PathVariable("userRoleId") Long userRoleId) {
 		logger.info("Update user role : {}", userRoleId, userRoleDTO);
 		userRoleService.updateRole(userRoleDTO, userRoleId);
 		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
@@ -50,7 +51,7 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 
 	@Override
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public Page<UserRoleDTO> getUserRoles(Pageable pageable) {
+	public Page<UserRoleDTO> getPage(Pageable pageable) {
 		logger.info("Fetch users roles by page : {}", pageable);
 		return userRoleService.getUsers(pageable);
 	}
