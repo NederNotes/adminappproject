@@ -31,21 +31,21 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<UserRoleDTO> getById(@RequestParam("userRoleId") Long userRoleId) {
 		logger.info("Get user role by Id : {}", userRoleId);
-		return new ResponseEntity<UserRoleDTO>(userRoleService.getUserRoleById(userRoleId), HttpStatus.OK);
+		return new ResponseEntity<UserRoleDTO>(userRoleService.getById(userRoleId), HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<UserRoleDTO> create(@RequestBody UserRoleDTO userRoleDTO, BindingResult result) {
 		logger.info("Create user role: {}", userRoleDTO);
-		userRoleService.saveRole(userRoleDTO);
+		userRoleService.save(userRoleDTO);
 		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
 	}
 	@Override
 	@RequestMapping(value = "/{userRoleId}", method = RequestMethod.PUT)
 	public ResponseEntity<UserRoleDTO> update(@RequestBody UserRoleDTO userRoleDTO, @PathVariable("userRoleId") Long userRoleId) {
 		logger.info("Update user role : {}", userRoleId, userRoleDTO);
-		userRoleService.updateRole(userRoleDTO, userRoleId);
+		userRoleService.update(userRoleDTO, userRoleId);
 		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
 	}
 
@@ -53,7 +53,7 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Page<UserRoleDTO> getPage(Pageable pageable) {
 		logger.info("Fetch users roles by page : {}", pageable);
-		return userRoleService.getUsers(pageable);
+		return userRoleService.getPage(pageable);
 	}
 
 }

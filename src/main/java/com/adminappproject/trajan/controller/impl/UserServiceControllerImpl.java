@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +34,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getById(@RequestParam("userId") Long userId) {
 		logger.info("Get user by Id : {}", userId);
-		return new ResponseEntity<UserDTO>(userService.getUserById(userId), HttpStatus.OK);
+		return new ResponseEntity<UserDTO>(userService.getById(userId), HttpStatus.OK);
 	}
 
 	@Override
@@ -45,7 +43,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 		logger.info("Create user: {}", userDTO);
 		UserValidator.getValidator().validate(userDTO, result);
 		if(!result.hasErrors()) {
-			userService.saveUser(userDTO);
+			userService.save(userDTO);
 			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);	
 		} else {
 			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.BAD_REQUEST);
@@ -56,7 +54,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO, @PathVariable("userId") Long userId) {
 		logger.info("Update user : {}", userId, userDTO);
-		userService.updateUser(userDTO, userId);
+		userService.update(userDTO, userId);
 		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 	}
 	
@@ -64,6 +62,6 @@ public class UserServiceControllerImpl implements UserServiceController {
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Page<UserDTO> getPage(Pageable pageable) {
 		logger.info("Fetch users by page : {}", pageable);
-		return userService.getUsers(pageable);
+		return userService.getPage(pageable);
 	}
 }

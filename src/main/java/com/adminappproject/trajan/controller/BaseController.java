@@ -10,5 +10,4 @@ public interface BaseController<T> {
 	public ResponseEntity<T> create(T dto, BindingResult result);
 	public ResponseEntity<T> update(T dto, Long id);
 	public Page<T> getPage(Pageable pageable);
-
 }

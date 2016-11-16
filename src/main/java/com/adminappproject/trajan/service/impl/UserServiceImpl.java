@@ -24,19 +24,20 @@ public class UserServiceImpl implements UserService {
 	private UserDtlRepo userDtlRepo;
 
 	@Override
-	public UserDTO getUserById(Long userId) {
+	public UserDTO getById(Long userId) {
 		return modelMapper.map(userRepo.findOne(userId), UserDTO.class);
 	}
 
 	@Override
-	public void saveUser(UserDTO userDTO) {
+	public UserDTO save(UserDTO userDTO) {
 		UserModel userModel = modelMapper.map(userDTO, UserModel.class);
 		userModel.setUserDtl(userDtlRepo.save(userModel.getUserDtl()));
 		userRepo.save(userModel);
+		return userDTO;
 	}
 
 	@Override
-	public void updateUser(UserDTO userDTO, Long userId) {
+	public UserDTO update(UserDTO userDTO, Long userId) {
 		/*
 		 * Use of ModelMapper to update is still experimental and number of code lines to be created is not advisable
 		*/
@@ -44,11 +45,12 @@ public class UserServiceImpl implements UserService {
 			UserModel userModel = updateDataDtoToModel(userDTO, userRepo.findOne(userId));
 			userRepo.save(userModel);
 		}
+		return userDTO;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<UserDTO> getUsers(Pageable pageable) {
+	public Page<UserDTO> getPage(Pageable pageable) {
 		return modelMapper.map(userRepo.findAll(pageable), Page.class);
 	}
 	

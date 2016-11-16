@@ -20,7 +20,7 @@ public class UserRoleServiceImpl implements UserRoleService{
 	private UserRoleRepo userRoleRepo;
 	
 	@Override
-	public UserRoleDTO getUserRoleById(Long userRoleId) {
+	public UserRoleDTO getById(Long userRoleId) {
 		UserRoleModel userRoleModel = userRoleRepo.findOne(userRoleId);
 		if(userRoleModel != null) {
 			return modelMapper.map(userRoleModel, UserRoleDTO.class);
@@ -29,21 +29,23 @@ public class UserRoleServiceImpl implements UserRoleService{
 	}
 
 	@Override
-	public void saveRole(UserRoleDTO userRoleDTO) {
+	public UserRoleDTO save(UserRoleDTO userRoleDTO) {
 		userRoleRepo.save(modelMapper.map(userRoleDTO, UserRoleModel.class));
+		return userRoleDTO;
 	}
 
 	@Override
-	public void updateRole(UserRoleDTO userRoleDTO, Long userRoleId) {
+	public UserRoleDTO update(UserRoleDTO userRoleDTO, Long userRoleId) {
 		if (userRoleRepo.exists(userRoleId)) {
 			UserRoleModel userRoleModel = updateDataDtoToModel(userRoleDTO, userRoleRepo.findOne(userRoleId));
 			userRoleRepo.save(userRoleModel);
 		}
+		return userRoleDTO;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<UserRoleDTO> getUsers(Pageable pageable) {
+	public Page<UserRoleDTO> getPage(Pageable pageable) {
 		return modelMapper.map(userRoleRepo.findAll(pageable), Page.class);
 	}
 	
