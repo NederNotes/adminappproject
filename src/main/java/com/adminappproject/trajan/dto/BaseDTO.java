@@ -21,6 +21,8 @@ public class BaseDTO {
 	@JsonProperty("updatedDate")
 	private DateTime updatedDate;
 
+	private ApiError apiError;
+
 	public Long getId() {
 		return id;
 	}
@@ -61,4 +63,11 @@ public class BaseDTO {
 		return this.updatedDate != null ? this.updatedDate : DateTime.now();
 	}
 
+	public ApiError getApiError() {
+		return apiError;
+	}
+
+	public void setApiError(ApiError apiError) {
+		this.apiError = apiError;
+	}
 }
