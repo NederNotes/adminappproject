@@ -25,7 +25,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getById(Long userId) {
-		return modelMapper.map(userRepo.findOne(userId), UserDTO.class);
+		return modelMapper.map(userRepo.findOne(userId) != null
+				? userRepo.findOne(userId) : new UserModel() , UserDTO.class);
 	}
 
 	@Override

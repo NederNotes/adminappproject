@@ -32,10 +32,12 @@ public class UserValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDtl.middleName",
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
 				messageSource.getMessage(MIDDLE_NAME_EMPTY, null, Locale.ENGLISH));
-		
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
+				messageSource.getMessage(MIDDLE_NAME_EMPTY, null, Locale.ENGLISH));
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "alias",
+				messageSource.getMessage(MIDDLE_NAME_EMPTY, null, Locale.ENGLISH));
 		embeddedErrorMsg(target, errors);
 	}
 	
