@@ -1,28 +1,45 @@
 package com.adminappproject.trajan.dto;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
+
+import java.util.List;
 
 public class ApiError {
 
-	private HttpStatus status =  HttpStatus.OK;
-	private List<ApiErrorDtl> apiErrorDtls;
+    private HttpStatus status = HttpStatus.OK;
+    private Boolean errorFlag = false;
+    private String generalMsg;
+    private List<ApiErrorDtl> apiErrorDtls;
 
-	public HttpStatus getStatus() {
-		return status;
-	}
+    public HttpStatus getStatus() {
+        return status;
+    }
 
-	public void setStatus(HttpStatus status) {
-		this.status = status;
-	}
+    public void setStatus(HttpStatus status) {
+        this.status = status;
+    }
 
-	public List<ApiErrorDtl> getApiErrorDtls() {
-		return apiErrorDtls;
-	}
+    public Boolean getErrorFlag() {
+        return errorFlag;
+    }
 
-	public void setApiErrorDtls(List<ApiErrorDtl> apiErrorDtls) {
-		this.apiErrorDtls = apiErrorDtls;
-	}
+    public void setErrorFlag(Boolean errorFlag) {
+        this.errorFlag = errorFlag;
+    }
 
+    public String getGeneralMsg() {
+        return generalMsg;
+    }
+
+    public void setGeneralMsg(String generalMsg) {
+        this.generalMsg = generalMsg;
+    }
+
+    public List<ApiErrorDtl> getApiErrorDtls() {
+        return apiErrorDtls;
+    }
+
+    public void setApiErrorDtls(List<ApiErrorDtl> apiErrorDtls) {
+        this.apiErrorDtls = apiErrorDtls;
+    }
 }

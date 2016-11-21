@@ -1,13 +1,11 @@
 package com.adminappproject.trajan.service;
 
-import java.util.List;
-
+import com.adminappproject.trajan.dto.ApiError;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
-import com.adminappproject.trajan.dto.ApiErrorDtl;
-
 @Service
 public interface ErrorHandlerService {
-	public List<ApiErrorDtl> compileErrorMsg(Errors errors);
+    public ApiError compileApiErrorMsg(Errors errors, HttpStatus httpStatus, String generalMsg);
 }

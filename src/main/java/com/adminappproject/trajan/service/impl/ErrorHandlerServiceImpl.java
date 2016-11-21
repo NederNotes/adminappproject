@@ -1,20 +1,30 @@
 package com.adminappproject.trajan.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.adminappproject.trajan.dto.ApiError;
+import com.adminappproject.trajan.dto.ApiErrorDtl;
+import com.adminappproject.trajan.service.ErrorHandlerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import com.adminappproject.trajan.dto.ApiErrorDtl;
-import com.adminappproject.trajan.service.ErrorHandlerService;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ErrorHandlerServiceImpl implements ErrorHandlerService {
 
 	@Override
-	public List<ApiErrorDtl> compileErrorMsg(Errors errors) {
+	public ApiError compileApiErrorMsg(Errors errors, HttpStatus httpStatus, String generalMsg) {
+		ApiError apiError = new ApiError();
+		apiError.setStatus(httpStatus);
+		apiError.setErrorFlag(Boolean.TRUE);
+		apiError.setGeneralMsg(generalMsg);
+		apiError.setApiErrorDtls(compileApiErrorMsgDtl(errors));
+		return apiError;
+	}
+
+	private List<ApiErrorDtl> compileApiErrorMsgDtl(Errors errors) {
 		List<ApiErrorDtl> apiErrorDtls = new ArrayList<>();
 		List<FieldError> errorFields = errors.getFieldErrors();
 
@@ -29,5 +39,4 @@ public class ErrorHandlerServiceImpl implements ErrorHandlerService {
 
 		return apiErrorDtls;
 	}
-
 }
