@@ -1,8 +1,12 @@
 package com.adminappproject.trajan.validator;
 
+import com.adminappproject.trajan.dto.ApiErrorFormDTO;
 import com.adminappproject.trajan.dto.UserDTO;
-import com.adminappproject.trajan.service.ErrorHandlerService;
+import com.adminappproject.trajan.service.ApiErrorService;
 import com.adminappproject.trajan.service.PropertiesMessageService;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,11 +17,10 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
 
-    private String GENERAL_FORM_ERROR_LOCAL_MSG = "err.msg.form.general.form";
     private String MISSING_REQUIRED_FIELD = "err.msg.form.req.value.missing";
 
-    @Autowired
-    private ErrorHandlerService errorHandler;
+	@Resource(name="apiErrorFormServiceImpl")
+    private ApiErrorService<ApiErrorFormDTO, Errors> apiErrorService;
 
     @Autowired
     private PropertiesMessageService propertiesMessageService;
@@ -39,9 +42,9 @@ public class UserValidator implements Validator {
         embeddedErrorMsg(target, errors);
     }
 
-    private void embeddedErrorMsg(Object target, Errors errors) {
+	private void embeddedErrorMsg(Object target, Errors errors) {
         if (errors.hasErrors()) {
-            ((UserDTO) target).setApiError(errorHandler.compileApiErrorMsg(errors, HttpStatus.BAD_GATEWAY, propertiesMessageService.getMessage(GENERAL_FORM_ERROR_LOCAL_MSG)));
+            ((UserDTO) target).setApiError((ApiErrorFormDTO)apiErrorService.compileApiErrorMsg(errors, HttpStatus.BAD_GATEWAY));
         }
     }
 }

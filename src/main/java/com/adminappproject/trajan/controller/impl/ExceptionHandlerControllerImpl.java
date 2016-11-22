@@ -1,14 +1,12 @@
 package com.adminappproject.trajan.controller.impl;
 
 import com.adminappproject.trajan.controller.ExceptionHandlerController;
-import com.adminappproject.trajan.dto.ApiError;
+import com.adminappproject.trajan.dto.ApiErrorExceptionDTO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
@@ -27,9 +25,8 @@ public class ExceptionHandlerControllerImpl implements ExceptionHandlerControlle
 	 */
 
     @Override
-    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Data integrity violation")
     @ExceptionHandler({SQLException.class, DataAccessException.class})
-    public ResponseEntity<ApiError> databaseError(HttpServletRequest req, Exception exception) {
-        return null;
+    public ResponseEntity<ApiErrorExceptionDTO> databaseError(HttpServletRequest req, Exception exception) {
+        return new ResponseEntity<ApiErrorExceptionDTO>(new ApiErrorExceptionDTO(), HttpStatus.CONFLICT);
     }
 }

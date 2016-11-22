@@ -4,12 +4,11 @@ import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
-public class ApiError {
+public class ApiErrorFormDTO {
 
     private HttpStatus status = HttpStatus.OK;
     private Boolean errorFlag = false;
-    private String generalMsg;
-    private List<ApiErrorDtl> apiErrorDtls;
+    private List<ApiErrorFormDtlDTO> apiErrorDtls;
 
     public HttpStatus getStatus() {
         return status;
@@ -27,19 +26,11 @@ public class ApiError {
         this.errorFlag = errorFlag;
     }
 
-    public String getGeneralMsg() {
-        return generalMsg;
-    }
-
-    public void setGeneralMsg(String generalMsg) {
-        this.generalMsg = generalMsg;
-    }
-
-    public List<ApiErrorDtl> getApiErrorDtls() {
+    public List<ApiErrorFormDtlDTO> getApiErrorDtls() {
         return apiErrorDtls;
     }
 
-    public void setApiErrorDtls(List<ApiErrorDtl> apiErrorDtls) {
+    public void setApiErrorDtls(List<ApiErrorFormDtlDTO> apiErrorDtls) {
         this.apiErrorDtls = apiErrorDtls;
     }
 }

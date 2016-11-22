@@ -1,6 +1,6 @@
 package com.adminappproject.trajan.dto;
 
-public class ApiErrorDtl {
+public class ApiErrorFormDtlDTO {
 	private String message;
 	private String errorsField;
 	private String rejectedValue;
