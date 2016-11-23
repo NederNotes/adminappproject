@@ -4,15 +4,14 @@ import com.adminappproject.trajan.dto.ApiErrorFormDTO;
 import com.adminappproject.trajan.dto.UserDTO;
 import com.adminappproject.trajan.service.ApiErrorService;
 import com.adminappproject.trajan.service.PropertiesMessageService;
-
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import javax.annotation.Resource;
 
 @Component
 public class UserValidator implements Validator {
@@ -45,6 +44,7 @@ public class UserValidator implements Validator {
 	private void embeddedErrorMsg(Object target, Errors errors) {
         if (errors.hasErrors()) {
             ((UserDTO) target).setApiError((ApiErrorFormDTO)apiErrorService.compileApiErrorMsg(errors, HttpStatus.BAD_GATEWAY));
-        }
+            target = target;
+        } else ((UserDTO) target).setApiError(new ApiErrorFormDTO());
     }
 }

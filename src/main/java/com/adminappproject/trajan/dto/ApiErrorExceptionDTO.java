@@ -6,7 +6,6 @@ public class ApiErrorExceptionDTO {
 
 	private HttpStatus httpStatus = HttpStatus.OK;
 	private String generalMsg;
-	private String stacktrace;
 
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
@@ -23,13 +22,4 @@ public class ApiErrorExceptionDTO {
 	public void setGeneralMsg(String generalMsg) {
 		this.generalMsg = generalMsg;
 	}
-
-	public String getStacktrace() {
-		return stacktrace;
-	}
-
-	public void setStacktrace(String stacktrace) {
-		this.stacktrace = stacktrace;
-	}
-
 }
