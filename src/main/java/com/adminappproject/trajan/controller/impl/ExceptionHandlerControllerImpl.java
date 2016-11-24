@@ -3,6 +3,8 @@ package com.adminappproject.trajan.controller.impl;
 import com.adminappproject.trajan.controller.ExceptionHandlerController;
 import com.adminappproject.trajan.dto.ApiErrorExceptionDTO;
 import com.adminappproject.trajan.service.ApiErrorService;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -23,20 +25,10 @@ public class ExceptionHandlerControllerImpl implements ExceptionHandlerControlle
     @Resource(name="apiErrorExceptionServiceImpl")
     private ApiErrorService<ApiErrorExceptionDTO, Exception> apiErrorService;
 
-	/*
-     * @ResponseStatus(value = HttpStatus.CONFLICT, reason =
-	 * "Data integrity violation") // 409
-	 */
-	/*
-	 * @ExceptionHandler({ SQLException.class, DataAccessException.class })
-	 * public ResponseEntity<Exception> databaseError(HttpServletRequest req,
-	 * Exception e) throws Exception { return new ResponseEntity<Exception>(e,
-	 * HttpStatus.CONFLICT); }
-	 */
-
     @Override
     @ExceptionHandler({SQLException.class, DataAccessException.class})
     public ResponseEntity<ApiErrorExceptionDTO> databaseError(HttpServletRequest req, Exception exception) {
+    	logger.error("On databaseError: {}", ExceptionUtils.getRootCauseMessage(exception));
         ApiErrorExceptionDTO apiErrorExceptionDTO = apiErrorService.compileApiErrorMsg(exception, HttpStatus.CONFLICT);
         return new ResponseEntity<ApiErrorExceptionDTO>(apiErrorExceptionDTO , apiErrorExceptionDTO.getHttpStatus());
     }

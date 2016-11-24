@@ -65,4 +65,11 @@ public class UserServiceControllerImpl implements UserServiceController {
 		logger.info("Fetch users by page : {}", pageable);
 		return userService.getPage(pageable);
 	}
+	
+	@Override
+	@RequestMapping(value = "/saveUserWithRoles", method = RequestMethod.GET)
+	public  ResponseEntity<UserDTO> saveUserWithRoles(@RequestParam("userId") Long userId, @RequestParam("userRoleId") Long roleId) {
+		logger.info("Save user with role by Id : {}", userId, roleId);
+		return new ResponseEntity<UserDTO>(userService.getById(userId), HttpStatus.OK);
+	}
 }

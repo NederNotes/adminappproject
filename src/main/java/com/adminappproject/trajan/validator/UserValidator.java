@@ -44,7 +44,6 @@ public class UserValidator implements Validator {
 	private void embeddedErrorMsg(Object target, Errors errors) {
         if (errors.hasErrors()) {
             ((UserDTO) target).setApiError((ApiErrorFormDTO)apiErrorService.compileApiErrorMsg(errors, HttpStatus.BAD_GATEWAY));
-            target = target;
         } else ((UserDTO) target).setApiError(new ApiErrorFormDTO());
     }
 }

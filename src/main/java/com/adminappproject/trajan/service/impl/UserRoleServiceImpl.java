@@ -21,11 +21,8 @@ public class UserRoleServiceImpl implements UserRoleService{
 	
 	@Override
 	public UserRoleDTO getById(Long userRoleId) {
-		UserRoleModel userRoleModel = userRoleRepo.findOne(userRoleId);
-		if(userRoleModel != null) {
-			return modelMapper.map(userRoleModel, UserRoleDTO.class);
-		}
-		return new UserRoleDTO();
+		return modelMapper.map(userRoleRepo.findOne(userRoleId) != null 
+				? userRoleRepo.findOne(userRoleId) : new UserRoleDTO(), UserRoleDTO.class);
 	}
 
 	@Override
