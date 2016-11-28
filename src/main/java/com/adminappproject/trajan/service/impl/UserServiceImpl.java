@@ -1,5 +1,9 @@
 package com.adminappproject.trajan.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import com.adminappproject.trajan.dto.UserDTO;
 import com.adminappproject.trajan.model.UserModel;
+import com.adminappproject.trajan.model.UserRoleModel;
 import com.adminappproject.trajan.repo.UserDtlRepo;
 import com.adminappproject.trajan.repo.UserRepo;
+import com.adminappproject.trajan.repo.UserRoleRepo;
 import com.adminappproject.trajan.service.UserService;
 
 @Component(value = "userServiceImpl")
@@ -22,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDtlRepo userDtlRepo;
+
+	@Autowired
+	private UserRoleRepo userRoleRepo;
 
 	@Override
 	public UserDTO getById(Long userId) {
@@ -62,6 +71,22 @@ public class UserServiceImpl implements UserService {
 				userDTO.getUserDtl().getLastName(), userDTO.getUserDtl().getGender(),
 				userDTO.getUserDtl().getBirthDate());
 		return userModel;
+	}
+
+	@Override
+	public UserDTO saveUserWithRoles(Long userId, List<Long> roleId) {
+		List<UserRoleModel> userRoleModels = new ArrayList<UserRoleModel>();
+		if(userRepo.exists(userId)) {
+			UserModel userModel = userRepo.findOne(userId);
+			Iterable<UserRoleModel> iterable = userRoleRepo.findAll(roleId);
+			Iterator<UserRoleModel> iterator = iterable.iterator();
+			while (iterator.hasNext()) {
+				userRoleModels.add(iterator.next());
+			}
+			
+			return modelMapper.map(userRepo.save(userModel.setRoles(userRoleModels)), UserDTO.class);
+		}
+		return modelMapper.map(new UserModel(), UserDTO.class);
 	}
 
 }

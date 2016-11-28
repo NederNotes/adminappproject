@@ -83,8 +83,9 @@ public class UserModel extends BaseModel implements Serializable {
 		return roles;
 	}
 
-	public void setRoles(List<UserRoleModel> roles) {
+	public UserModel setRoles(List<UserRoleModel> roles) {
 		this.roles = roles;
+		return this;
 	}
 	
 }

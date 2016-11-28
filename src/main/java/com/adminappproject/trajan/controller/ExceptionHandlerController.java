@@ -7,5 +7,6 @@ import com.adminappproject.trajan.dto.ApiErrorExceptionDTO;
 import javax.servlet.http.HttpServletRequest;
 
 public interface ExceptionHandlerController {
-   public ResponseEntity<ApiErrorExceptionDTO> databaseError(HttpServletRequest req, Exception exception);
+	public ResponseEntity<ApiErrorExceptionDTO> databaseError(HttpServletRequest req, Exception exception);
+	public ResponseEntity<ApiErrorExceptionDTO> databaseIntegrityError(HttpServletRequest req, Exception exception);
 }

@@ -1,5 +1,7 @@
 package com.adminappproject.trajan.controller.impl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -67,9 +69,9 @@ public class UserServiceControllerImpl implements UserServiceController {
 	}
 	
 	@Override
-	@RequestMapping(value = "/saveUserWithRoles", method = RequestMethod.GET)
-	public  ResponseEntity<UserDTO> saveUserWithRoles(@RequestParam("userId") Long userId, @RequestParam("userRoleId") Long roleId) {
-		logger.info("Save user with role by Id : {}", userId, roleId);
-		return new ResponseEntity<UserDTO>(userService.getById(userId), HttpStatus.OK);
+	@RequestMapping(value = "/saveUserWithRoles", method = RequestMethod.POST)
+	public  ResponseEntity<UserDTO> saveUserWithRoles(@RequestParam("userId") Long userId, @RequestParam("userRoleIds") List<Long> roleId) {
+		logger.info("Save user with role by id : {}", userId, roleId);
+		return new ResponseEntity<UserDTO>(userService.saveUserWithRoles(userId, roleId), HttpStatus.OK);
 	}
 }

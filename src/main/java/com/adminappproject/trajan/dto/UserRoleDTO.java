@@ -15,9 +15,6 @@ public class UserRoleDTO extends BaseDTO {
 	@JsonProperty("description")
 	private String description;
 
-	@JsonProperty("users")
-	private List<UserDTO> users;
-
 	public String getName() {
 		return name;
 	}
@@ -40,13 +37,5 @@ public class UserRoleDTO extends BaseDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<UserDTO> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserDTO> users) {
-		this.users = users;
 	}
 }

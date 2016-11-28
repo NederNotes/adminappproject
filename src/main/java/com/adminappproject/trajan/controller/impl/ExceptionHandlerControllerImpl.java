@@ -8,6 +8,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,10 +25,18 @@ public class ExceptionHandlerControllerImpl implements ExceptionHandlerControlle
 
     @Resource(name="apiErrorExceptionServiceImpl")
     private ApiErrorService<ApiErrorExceptionDTO, Exception> apiErrorService;
-
+    
     @Override
     @ExceptionHandler({SQLException.class, DataAccessException.class})
     public ResponseEntity<ApiErrorExceptionDTO> databaseError(HttpServletRequest req, Exception exception) {
+    	logger.error("On databaseError: {}", ExceptionUtils.getRootCauseMessage(exception));
+        ApiErrorExceptionDTO apiErrorExceptionDTO = apiErrorService.compileApiErrorMsg(exception, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ApiErrorExceptionDTO>(apiErrorExceptionDTO , apiErrorExceptionDTO.getHttpStatus());
+    }
+
+    @Override
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ResponseEntity<ApiErrorExceptionDTO> databaseIntegrityError(HttpServletRequest req, Exception exception) {
     	logger.error("On databaseError: {}", ExceptionUtils.getRootCauseMessage(exception));
         ApiErrorExceptionDTO apiErrorExceptionDTO = apiErrorService.compileApiErrorMsg(exception, HttpStatus.CONFLICT);
         return new ResponseEntity<ApiErrorExceptionDTO>(apiErrorExceptionDTO , apiErrorExceptionDTO.getHttpStatus());
