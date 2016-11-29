@@ -2,8 +2,11 @@ package com.adminappproject.trajan.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -25,6 +28,10 @@ public class UserRoleModel extends BaseModel {
 	
 	@ManyToMany(mappedBy="roles")
 	private List<UserModel> users;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ref_role_has_ref_perm", joinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_perm_id", referencedColumnName = "id"))
+	private List<PermissionModel> permissions;
 	
 	public UserRoleModel updateToModel(String updatedBy, DateTime updatedDate, String name, String code, String description) {
 		this.setUpdatedBy(updatedBy);
@@ -67,4 +74,11 @@ public class UserRoleModel extends BaseModel {
 		this.users = users;
 	}
 
+	public List<PermissionModel> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<PermissionModel> permissions) {
+		this.permissions = permissions;
+	}
 }

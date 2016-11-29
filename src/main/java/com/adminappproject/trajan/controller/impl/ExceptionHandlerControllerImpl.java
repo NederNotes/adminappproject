@@ -37,7 +37,7 @@ public class ExceptionHandlerControllerImpl implements ExceptionHandlerControlle
     @Override
     @ExceptionHandler({DataIntegrityViolationException.class})
     public ResponseEntity<ApiErrorExceptionDTO> databaseIntegrityError(HttpServletRequest req, Exception exception) {
-    	logger.error("On databaseError: {}", ExceptionUtils.getRootCauseMessage(exception));
+    	logger.error("On databaseIntegrityError: {}", ExceptionUtils.getRootCauseMessage(exception));
         ApiErrorExceptionDTO apiErrorExceptionDTO = apiErrorService.compileApiErrorMsg(exception, HttpStatus.CONFLICT);
         return new ResponseEntity<ApiErrorExceptionDTO>(apiErrorExceptionDTO , apiErrorExceptionDTO.getHttpStatus());
     }
