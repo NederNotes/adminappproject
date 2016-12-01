@@ -34,8 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getById(Long userId) {
-		return modelMapper.map(userRepo.findOne(userId) != null
-				? userRepo.findOne(userId) : new UserModel() , UserDTO.class);
+		return modelMapper.map(userRepo.findOne(userId) != null ? userRepo.findOne(userId) : new UserModel(), UserDTO.class);
 	}
 
 	@Override
@@ -49,8 +48,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO update(UserDTO userDTO, Long userId) {
 		/*
-		 * Use of ModelMapper to update is still experimental and number of code lines to be created is not advisable
-		*/
+		 * Use of ModelMapper to update is still experimental and number of
+		 * lines of code to be created is not advisable
+		 */
 		if (userRepo.exists(userId)) {
 			UserModel userModel = updateDataDtoToModel(userDTO, userRepo.findOne(userId));
 			userRepo.save(userModel);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	public Page<UserDTO> getPage(Pageable pageable) {
 		return modelMapper.map(userRepo.findAll(pageable), Page.class);
 	}
-	
+
 	private UserModel updateDataDtoToModel(UserDTO userDTO, UserModel userModel) {
 		userModel.updateToModel(userDTO.getUpdatedBy(), userDTO.getUpdatedDate(), userDTO.getUsername(),
 				userDTO.getPassword(), userDTO.getAlias());
@@ -76,14 +76,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO saveUserWithRoles(Long userId, List<Long> roleId) {
 		List<UserRoleModel> userRoleModels = new ArrayList<UserRoleModel>();
-		if(userRepo.exists(userId)) {
+		if (userRepo.exists(userId)) {
 			UserModel userModel = userRepo.findOne(userId);
 			Iterable<UserRoleModel> iterable = userRoleRepo.findAll(roleId);
 			Iterator<UserRoleModel> iterator = iterable.iterator();
+
+			/* Remove all roles in user first */
+			/*for (UserRoleModel userRoleModel : userModel.getRoles()) {
+				userRoleModel.getUsers().remove(userModel);
+			}*/
+			userModel.setRoles(new ArrayList<UserRoleModel>());
+
+			/* Re-add all role with id */
 			while (iterator.hasNext()) {
 				userRoleModels.add(iterator.next());
 			}
-			
+
 			return modelMapper.map(userRepo.save(userModel.setRoles(userRoleModels)), UserDTO.class);
 		}
 		return modelMapper.map(new UserModel(), UserDTO.class);
