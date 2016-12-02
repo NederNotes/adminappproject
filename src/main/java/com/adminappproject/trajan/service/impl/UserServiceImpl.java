@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Page<UserDTO> getPage(Pageable pageable) {
-		return modelMapper.map(userRepo.findAll(pageable), Page.class);
+		Page<UserModel> object = userRepo.findAllUser(pageable);
+		return modelMapper.map(userRepo.findAllUser(pageable), Page.class);
 	}
 
 	private UserModel updateDataDtoToModel(UserDTO userDTO, UserModel userModel) {

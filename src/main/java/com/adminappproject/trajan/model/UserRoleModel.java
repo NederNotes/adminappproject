@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,7 +27,7 @@ public class UserRoleModel extends BaseModel {
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToMany(mappedBy="roles")
+	@ManyToMany(mappedBy="roles", fetch = FetchType.LAZY)
 	private List<UserModel> users;
 	
 	@ManyToMany(cascade = CascadeType.ALL)

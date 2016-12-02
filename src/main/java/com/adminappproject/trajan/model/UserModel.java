@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -33,7 +34,7 @@ public class UserModel extends BaseModel implements Serializable {
 	@JoinColumn(name = "ref_user_dtl_id")
 	private UserDtlModel userDtl;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ref_user_has_ref_role", joinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_user_id", referencedColumnName = "id"))
 	private List<UserRoleModel> roles;
 
