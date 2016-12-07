@@ -1,7 +1,6 @@
 package com.adminappproject.trajan.service.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -78,20 +77,7 @@ public class UserServiceImpl implements UserService {
 		List<UserRoleModel> userRoleModels = new ArrayList<UserRoleModel>();
 		if (userRepo.exists(userId)) {
 			UserModel userModel = userRepo.findOne(userId);
-			Iterable<UserRoleModel> iterable = userRoleRepo.findAll(roleId);
-			Iterator<UserRoleModel> iterator = iterable.iterator();
-
-			/* Remove all roles in user first */
-			/*for (UserRoleModel userRoleModel : userModel.getRoles()) {
-				userRoleModel.getUsers().remove(userModel);
-			}*/
-			userModel.setRoles(new ArrayList<UserRoleModel>());
-
-			/* Re-add all role with id */
-			while (iterator.hasNext()) {
-				userRoleModels.add(iterator.next());
-			}
-
+			userRoleModels = userRoleRepo.findByIds(roleId);
 			return modelMapper.map(userRepo.save(userModel.setRoles(userRoleModels)), UserDTO.class);
 		}
 		return modelMapper.map(new UserModel(), UserDTO.class);
