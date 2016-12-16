@@ -1,5 +1,7 @@
 package com.adminappproject.trajan.controller.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +40,13 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<UserRoleDTO> create(@RequestBody UserRoleDTO userRoleDTO, BindingResult result) {
 		logger.info("Create user role: {}", userRoleDTO);
-		userRoleService.save(userRoleDTO);
-		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
+		return new ResponseEntity<UserRoleDTO>(userRoleService.save(userRoleDTO), HttpStatus.OK);
 	}
 	@Override
 	@RequestMapping(value = "/{userRoleId}", method = RequestMethod.PUT)
 	public ResponseEntity<UserRoleDTO> update(@RequestBody UserRoleDTO userRoleDTO, @PathVariable("userRoleId") Long userRoleId) {
 		logger.info("Update user role : {}", userRoleId, userRoleDTO);
-		userRoleService.update(userRoleDTO, userRoleId);
-		return new ResponseEntity<UserRoleDTO>(userRoleDTO, HttpStatus.OK);
+		return new ResponseEntity<UserRoleDTO>(userRoleService.update(userRoleDTO, userRoleId), HttpStatus.OK);
 	}
 
 	@Override
@@ -54,6 +54,13 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 	public Page<UserRoleDTO> getPage(Pageable pageable) {
 		logger.info("Fetch users roles by page : {}", pageable);
 		return userRoleService.getPage(pageable);
+	}
+	
+	@Override
+	@RequestMapping(value = "/saveRoleWithPerms", method = RequestMethod.POST)
+	public  ResponseEntity<UserRoleDTO> saveRoleWithPerms(@RequestParam("userRoleId") Long userRoleId, @RequestParam("permIds") List<Long> permIds) {
+		logger.info("Save user with role by id : {}", userRoleId, permIds);
+		return new ResponseEntity<UserRoleDTO>(userRoleService.saveRoleWithPerms(userRoleId, permIds), HttpStatus.OK);
 	}
 
 }

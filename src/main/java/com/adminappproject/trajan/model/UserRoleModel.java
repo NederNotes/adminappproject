@@ -79,7 +79,8 @@ public class UserRoleModel extends BaseModel {
 		return permissions;
 	}
 
-	public void setPermissions(List<PermissionModel> permissions) {
+	public UserRoleModel setPermissions(List<PermissionModel> permissions) {
 		this.permissions = permissions;
+		return this;
 	}
 }

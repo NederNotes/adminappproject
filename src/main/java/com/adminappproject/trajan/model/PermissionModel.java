@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "ref_perm")
@@ -21,8 +23,17 @@ public class PermissionModel extends BaseModel{
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToMany(mappedBy="permissions")
+	@Transient
 	private List<UserRoleModel> roles;
+	
+	public PermissionModel updateToModel(String updatedBy, DateTime updatedDate, String name, String code, String description) {
+		this.setUpdatedBy(updatedBy);
+		this.setUpdatedDate(updatedDate);
+		this.name = name;
+		this.code = code;
+		this.description = description;		
+		return this;
+	}
 
 	public String getName() {
 		return name;

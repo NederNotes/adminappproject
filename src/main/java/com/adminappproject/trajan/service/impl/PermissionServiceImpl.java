@@ -33,8 +33,11 @@ public class PermissionServiceImpl implements PermissionService{
 
 	@Override
 	public PermissionDTO update(PermissionDTO permissionDTO, Long permId) {
-		// TODO Auto-generated method stub
-		return null;
+		if (permissionRepo.exists(permId)) {
+			PermissionModel permissionModel = updateDataDtoToModel(permissionDTO, permissionRepo.findOne(permId));
+			permissionRepo.save(permissionModel);
+		}
+		return permissionDTO;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,5 +45,10 @@ public class PermissionServiceImpl implements PermissionService{
 	public Page<PermissionDTO> getPage(Pageable pageable) {
 		return modelMapper.map(permissionRepo.findAll(pageable), Page.class);
 	}
-
+	
+	private PermissionModel updateDataDtoToModel(PermissionDTO permissionDTO, PermissionModel permissionModel) {
+		permissionModel.updateToModel(permissionDTO.getUpdatedBy(), permissionDTO.getUpdatedDate(), permissionDTO.getName()
+				, permissionDTO.getCode(), permissionDTO.getDescription());
+		return permissionModel;
+	}
 }
