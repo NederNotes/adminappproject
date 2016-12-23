@@ -9,4 +9,5 @@ import com.adminappproject.trajan.dto.UserDTO;
 @Service
 public interface UserService extends BaseService<UserDTO> {
 	public UserDTO saveUserWithRoles(Long userId, List<Long> roleId);
+	public UserDTO findByUsername(String username);
 }

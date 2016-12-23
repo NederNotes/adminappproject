@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,4 +75,16 @@ public class UserServiceControllerImpl implements UserServiceController {
 		logger.info("Save user with role by id : {}", userId, roleId);
 		return new ResponseEntity<UserDTO>(userService.saveUserWithRoles(userId, roleId), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
+    }
+
 }
