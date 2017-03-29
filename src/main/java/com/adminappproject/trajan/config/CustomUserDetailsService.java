@@ -1,0 +1,55 @@
+package com.adminappproject.trajan.config;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.adminappproject.trajan.dto.UserDTO;
+import com.adminappproject.trajan.dto.UserRoleDTO;
+import com.adminappproject.trajan.service.UserService;
+
+@Transactional
+public class CustomUserDetailsService implements UserDetailsService {
+	 private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
+	 
+		private UserService userService;
+
+	    public CustomUserDetailsService(UserService userService){
+	        this.userService=userService;
+	    }
+
+	    @Override
+	    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	        try {
+	            UserDTO user = userService.findByUsername(username);
+	            if (user == null) {
+	                LOGGER.debug("user not found with the provided username");
+	                return null;
+	            }
+	            LOGGER.debug(" user from username " + user.toString());
+	            return new User(user.getUsername(), user.getPassword(), getAuthorities(user));
+	        }
+	        catch (Exception e){
+	            throw new UsernameNotFoundException("User not found");
+	        }
+	    }
+
+	    private Set<GrantedAuthority> getAuthorities(UserDTO user){
+	        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+	        for(UserRoleDTO role : user.getRoles()) {
+	            authorities.add(new SimpleGrantedAuthority(role.getCode()));
+	        }
+	        LOGGER.debug("user authorities are " + authorities.toString());
+	        return authorities;
+	    }
+
+}

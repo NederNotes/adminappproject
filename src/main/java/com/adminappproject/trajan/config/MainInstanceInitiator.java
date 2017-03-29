@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.adminappproject.trajan.controller", "com.adminappproject.trajan.service",
-		"com.adminappproject.trajan.validator" })
+		"com.adminappproject.trajan.validator", "com.adminappproject.trajan.config" })
 @EnableJpaRepositories("com.adminappproject.trajan.repo")
 @EntityScan("com.adminappproject.trajan.model")
 public class MainInstanceInitiator {
@@ -24,11 +23,6 @@ public class MainInstanceInitiator {
 		return source;
 	}
 	
-	@Bean
-    public WebSecurityConfigurerAdapter WebSecurityConfig() {
-        return new WebSecurityConfig();
-    }
-
 	public static void main(String[] args) throws Throwable {
 		SpringApplication.run(MainInstanceInitiator.class, args);
 	}

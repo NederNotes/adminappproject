@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getById(Long userId) {
-		return modelMapper.map(userRepo.findOne(userId) != null ? userRepo.findOne(userId) : new UserModel(), UserDTO.class);
+		return modelMapper.map(userRepo.findOne(userId) != null ? userRepo.findOne(userId) : new UserModel() , UserDTO.class);
 	}
 
 	@Override
@@ -85,9 +85,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO findByUsername(String username) {
-		UserModel user = userRepo.findByUsername(username);
-		return modelMapper.map(user != null ? 
-				user : new UserModel() , UserDTO.class);
+		return updateDataModelToDto(userRepo.findByUsername(username));
+	}
+	
+	private UserDTO updateDataModelToDto(UserModel userModel) {
+		return  modelMapper.map(userModel != null ? userModel : new UserModel() , UserDTO.class);
 	}
 
 }
