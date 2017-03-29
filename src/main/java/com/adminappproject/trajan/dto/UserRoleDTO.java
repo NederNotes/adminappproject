@@ -1,8 +1,8 @@
 package com.adminappproject.trajan.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 public class UserRoleDTO extends BaseDTO {
 
@@ -16,7 +16,7 @@ public class UserRoleDTO extends BaseDTO {
 	private String description;
 
 	@JsonProperty("permission")
-	private List<PermissionDTO> permission;
+	private List<PermissionDTO> permissions;
 
 	public String getName() {
 		return name;
@@ -42,12 +42,12 @@ public class UserRoleDTO extends BaseDTO {
 		this.description = description;
 	}
 
-	public List<PermissionDTO> getPermission() {
-		return permission;
+	public List<PermissionDTO> getPermissions() {
+		return permissions;
 	}
 
-	public void setPermission(List<PermissionDTO> permission) {
-		this.permission = permission;
+	public void setPermissions(List<PermissionDTO> permissions) {
+		this.permissions = permissions;
 	}
 
 }

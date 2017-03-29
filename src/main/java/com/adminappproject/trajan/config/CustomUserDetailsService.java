@@ -1,8 +1,9 @@
 package com.adminappproject.trajan.config;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.adminappproject.trajan.dto.PermissionDTO;
+import com.adminappproject.trajan.dto.UserDTO;
+import com.adminappproject.trajan.dto.UserRoleDTO;
+import com.adminappproject.trajan.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,9 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.adminappproject.trajan.dto.UserDTO;
-import com.adminappproject.trajan.dto.UserRoleDTO;
-import com.adminappproject.trajan.service.UserService;
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
@@ -45,10 +45,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	    private Set<GrantedAuthority> getAuthorities(UserDTO user){
 	        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-	        for(UserRoleDTO role : user.getRoles()) {
-	            authorities.add(new SimpleGrantedAuthority(role.getCode()));
+			Set<PermissionDTO> permissionDTOs = new HashSet<PermissionDTO>();
+
+			for(UserRoleDTO role : user.getRoles()) {
+				permissionDTOs.addAll(role.getPermissions());
 	        }
-	        LOGGER.debug("user authorities are " + authorities.toString());
+
+			for(PermissionDTO permissionDTO : permissionDTOs) {
+				authorities.add(new SimpleGrantedAuthority(permissionDTO.getCode()));
+			}
+
+			LOGGER.debug("user authorities are " + authorities.toString());
 	        return authorities;
 	    }
 
