@@ -31,32 +31,30 @@ public class UserServiceImpl implements UserService {
 	private UserRoleRepo userRoleRepo;
 
 	@Override
-	public UserDTO getById(Long userId) {
-		return updateDataModelToDto(userRepo.findOne(userId) );
+	public UserDTO getById(Long id) {
+		return updateDataModelToDto(userRepo.findOne(id) );
 	}
 
 	@Override
-	public UserDTO save(UserDTO userDTO) {
-		UserModel userModel = updateDataDtoToModel(userDTO);
+	public UserDTO save(UserDTO dto) {
+		UserModel userModel = updateDataDtoToModel(dto);
 		userModel.setUserDtl(userDtlRepo.save(userModel.getUserDtl()));
-		userRepo.save(userModel);
-		return userDTO;
+		return modelMapper.map(userRepo.save(userModel),UserDTO.class);
 	}
 
 	@Override
-	public UserDTO update(UserDTO userDTO, Long userId) {
+	public UserDTO update(UserDTO dto, Long id) {
 		/*
-		 * Use of ModelMapper to update is still experimental and number of
-		 * lines of code to be created is not advisable
+		 * Use of ModelMapper to update is still experimental due to value override
+		 * also lines of code to be created is not advisable
 		 */
-		if (userRepo.exists(userId)) {
-			UserModel userModel = updateDataDtoToModelRaw(userDTO, userRepo.findOne(userId));
-			userRepo.save(userModel);
+		if (userRepo.exists(id)) {
+			UserModel userModel = updateDataDtoToModelRaw(dto, userRepo.findOne(id));
+			return modelMapper.map(userRepo.save(userModel),UserDTO.class);
 		}
-		return userDTO;
+		return dto;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Page<UserDTO> getPage(Pageable pageable) {
 		return modelMapper.map(userRepo.findAll(pageable), Page.class);
@@ -80,10 +78,10 @@ public class UserServiceImpl implements UserService {
 
 	private UserModel updateDataDtoToModelRaw(UserDTO userDTO, UserModel userModel) {
 		userModel.updateToModel(userDTO.getUpdatedBy(), userDTO.getUpdatedDate(), userDTO.getUsername(),
-				userDTO.getPassword(), userDTO.getAlias());
+				userDTO.getPassword(), userDTO.getEmailAddress(), userDTO.isDisabled());
 		userModel.getUserDtl().updateToModel(userDTO.getUserDtl().getFirstName(), userDTO.getUserDtl().getMiddleName(),
 				userDTO.getUserDtl().getLastName(), userDTO.getUserDtl().getGender(),
-				userDTO.getUserDtl().getBirthDate());
+				userDTO.getUserDtl().getBirthDate(), userDTO.getUserDtl().getAlias());
 		return userModel;
 	}
 

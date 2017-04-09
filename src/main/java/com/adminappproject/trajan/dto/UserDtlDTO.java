@@ -21,6 +21,9 @@ public class UserDtlDTO {
 	@JsonProperty("gender")
 	private String gender;
 
+	@JsonProperty("alias")
+	private String alias;
+
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@JsonProperty("birthDate")
 	private LocalDate birthDate;
@@ -63,6 +66,14 @@ public class UserDtlDTO {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public LocalDate getBirthDate() {

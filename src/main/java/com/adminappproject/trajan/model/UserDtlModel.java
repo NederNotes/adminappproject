@@ -1,16 +1,10 @@
 package com.adminappproject.trajan.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ref_user_dtl")
@@ -34,16 +28,20 @@ public class UserDtlModel implements Serializable{
 	@Column(name="gender")
 	private String gender;
 
+	@Column(name="alias")
+	private String alias;
+
 	@Column(name="birth_date")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate birthDate;
 	
-	public UserDtlModel updateToModel(String firstName, String middleName, String lastName, String gender, LocalDate birthDate) {
+	public UserDtlModel updateToModel(String firstName, String middleName, String lastName, String gender, LocalDate birthDate, String alias) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.birthDate = birthDate;
+		this.alias = alias;
 		return this;
 	}
 
@@ -93,5 +91,13 @@ public class UserDtlModel implements Serializable{
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

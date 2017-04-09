@@ -36,8 +36,6 @@ public class UserValidator implements Validator {
                 propertiesMessageService.getMessage(MISSING_REQUIRED_FIELD));
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
                 propertiesMessageService.getMessage(MISSING_REQUIRED_FIELD));
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "alias",
-                propertiesMessageService.getMessage(MISSING_REQUIRED_FIELD));
         embeddedErrorMsg(target, errors);
     }
 

@@ -1,8 +1,8 @@
 package com.adminappproject.trajan.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 public class UserDTO extends BaseDTO {
 
@@ -12,8 +12,11 @@ public class UserDTO extends BaseDTO {
 	@JsonProperty("password")
 	private String password;
 
-	@JsonProperty("alias")
-	private String alias;
+	@JsonProperty("emailAddress")
+	private String emailAddress;
+
+	@JsonProperty("disabled")
+	private Boolean disabled;
 
 	@JsonProperty("userDtl")
 	private UserDtlDTO userDtl;
@@ -37,12 +40,20 @@ public class UserDTO extends BaseDTO {
 		this.password = password;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public Boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 
 	public UserDtlDTO getUserDtl() {

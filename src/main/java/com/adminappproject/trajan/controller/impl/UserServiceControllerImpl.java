@@ -1,9 +1,9 @@
 package com.adminappproject.trajan.controller.impl;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.adminappproject.trajan.controller.UserServiceController;
+import com.adminappproject.trajan.dto.UserDTO;
+import com.adminappproject.trajan.service.UserService;
+import com.adminappproject.trajan.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.adminappproject.trajan.controller.UserServiceController;
-import com.adminappproject.trajan.dto.UserDTO;
-import com.adminappproject.trajan.service.UserService;
-import com.adminappproject.trajan.validator.UserValidator;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -54,7 +47,7 @@ public class UserServiceControllerImpl implements UserServiceController {
 	}
 
 	@Override
-	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{userId}", method = RequestMethod.POST)
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO, @PathVariable("userId") Long userId) {
 		logger.info("Update user : {}", userId, userDTO);
 		userService.update(userDTO, userId);

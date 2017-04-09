@@ -1,19 +1,11 @@
 package com.adminappproject.trajan.model;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "ref_user")
@@ -27,8 +19,12 @@ public class UserModel extends BaseModel implements Serializable {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "alias")
-	private String alias;
+	@Column(name = "email_address")
+	private String emailAddress;
+
+	@Column(name = "disabled", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private Boolean disabled;
 
 	@OneToOne
 	@JoinColumn(name = "ref_user_dtl_id")
@@ -39,12 +35,13 @@ public class UserModel extends BaseModel implements Serializable {
 	private List<UserRoleModel> roles;
 
 	public UserModel updateToModel(String updatedBy, DateTime updatedDate, String userName, String password,
-			String alias) {
+			String emailAddress, Boolean disabled) {
 		super.setUpdatedBy(updatedBy);
 		super.setUpdatedDate(updatedDate);
 		this.username = userName;
 		this.password = password;
-		this.alias = alias;
+		this.emailAddress = emailAddress;
+		this.disabled = disabled;
 		return this;
 	}
 
@@ -64,12 +61,20 @@ public class UserModel extends BaseModel implements Serializable {
 		this.password = password;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public Boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 
 	public UserDtlModel getUserDtl() {
