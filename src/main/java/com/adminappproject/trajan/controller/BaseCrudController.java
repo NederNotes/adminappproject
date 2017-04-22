@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
-public interface BaseController<T> {
+public interface BaseCrudController<T> {
 	public ResponseEntity<T> getById(Long id);
 	public ResponseEntity<T> create(T dto, BindingResult result);
 	public ResponseEntity<T> update(T dto, Long id);

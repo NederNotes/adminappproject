@@ -42,7 +42,7 @@ public class PermissionServiceControllerImpl implements PermissionServiceControl
 	}
 
 	@Override
-	@RequestMapping(value = "/{permId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{permId}", method = RequestMethod.POST)
 	public ResponseEntity<PermissionDTO> update(@RequestBody PermissionDTO permissionDTO, @PathVariable("permId") Long permId) {
 		logger.info("Update permission : {}", permId, permissionDTO);
 		return new ResponseEntity<PermissionDTO>(permissionServiceImpl.update(permissionDTO, permId), HttpStatus.OK);

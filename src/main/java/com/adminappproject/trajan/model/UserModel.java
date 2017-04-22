@@ -31,7 +31,7 @@ public class UserModel extends BaseModel implements Serializable {
 	private UserDtlModel userDtl;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ref_user_has_ref_role", joinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_user_id", referencedColumnName = "id"))
+	@JoinTable(name = "ref_user_has_ref_role", joinColumns = @JoinColumn(name = "ref_user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"))
 	private List<UserRoleModel> roles;
 
 	public UserModel updateToModel(String updatedBy, DateTime updatedDate, String userName, String password,

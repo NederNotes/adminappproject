@@ -15,7 +15,7 @@ public class UserRoleDTO extends BaseDTO {
 	@JsonProperty("description")
 	private String description;
 
-	@JsonProperty("permission")
+	@JsonProperty("permissions")
 	private List<PermissionDTO> permissions;
 
 	public String getName() {

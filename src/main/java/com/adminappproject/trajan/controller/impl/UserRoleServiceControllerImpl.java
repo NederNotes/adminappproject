@@ -43,7 +43,7 @@ public class UserRoleServiceControllerImpl implements UserRoleServiceController 
 		return new ResponseEntity<UserRoleDTO>(userRoleService.save(userRoleDTO), HttpStatus.OK);
 	}
 	@Override
-	@RequestMapping(value = "/{userRoleId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{userRoleId}", method = RequestMethod.POST)
 	public ResponseEntity<UserRoleDTO> update(@RequestBody UserRoleDTO userRoleDTO, @PathVariable("userRoleId") Long userRoleId) {
 		logger.info("Update user role : {}", userRoleId, userRoleDTO);
 		return new ResponseEntity<UserRoleDTO>(userRoleService.update(userRoleDTO, userRoleId), HttpStatus.OK);

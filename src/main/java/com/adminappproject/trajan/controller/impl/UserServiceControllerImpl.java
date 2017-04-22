@@ -63,8 +63,8 @@ public class UserServiceControllerImpl implements UserServiceController {
 	
 	@Override
 	@RequestMapping(value = "/saveUserWithRoles", method = RequestMethod.POST)
-	public  ResponseEntity<UserDTO> saveUserWithRoles(@RequestParam("userId") Long userId, @RequestParam("userRoleIds") List<Long> roleId) {
-		logger.info("Save user with role by id : {}", userId, roleId);
-		return new ResponseEntity<UserDTO>(userService.saveUserWithRoles(userId, roleId), HttpStatus.OK);
+	public  ResponseEntity<UserDTO> saveUserWithRoles(@RequestParam("userId") Long userId, @RequestParam("userRoleIds") List<Long> roleIds) {
+		logger.info("Save user with role by id : {}", userId, roleIds);
+		return new ResponseEntity<UserDTO>(userService.saveUserWithRoles(userId, roleIds), HttpStatus.OK);
 	}
 }
