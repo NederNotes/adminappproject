@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.joda.time.DateTime;
 
 @Entity
@@ -26,9 +24,10 @@ public class UserRoleModel extends BaseModel {
 
 	@Column(name = "description")
 	private String description;
-	
-	@Transient
-	private List<UserModel> users;
+
+	/*remove getter method for Jackson mapper*/
+	@ManyToMany(mappedBy = "roles")
+    private List<UserModel> users;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ref_role_has_ref_perm", joinColumns = @JoinColumn(name = "ref_role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ref_perm_id", referencedColumnName = "id"))
@@ -69,10 +68,6 @@ public class UserRoleModel extends BaseModel {
 
 	public List<UserModel> getUsers() {
 		return users;
-	}
-
-	public void setUsers(List<UserModel> users) {
-		this.users = users;
 	}
 
 	public List<PermissionModel> getPermissions() {

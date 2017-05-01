@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.joda.time.DateTime;
 
@@ -22,8 +22,9 @@ public class PermissionModel extends BaseModel{
 
 	@Column(name = "description")
 	private String description;
-	
-	@Transient
+
+	/*remove getter method for Jackson mapper*/
+	@ManyToMany(mappedBy = "permissions")
 	private List<UserRoleModel> roles;
 	
 	public PermissionModel updateToModel(String updatedBy, DateTime updatedDate, String name, String code, String description) {
@@ -57,10 +58,6 @@ public class PermissionModel extends BaseModel{
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<UserRoleModel> getRoles() {
-		return roles;
 	}
 
 	public void setRoles(List<UserRoleModel> roles) {
