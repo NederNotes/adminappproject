@@ -24,7 +24,7 @@ public class ExceptionHandlerControllerImpl implements ExceptionHandlerControlle
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerControllerImpl.class);
 
     @Resource(name="apiErrorExceptionServiceImpl")
-    private ApiErrorService<ApiErrorExceptionDTO, Exception> apiErrorService;
+    private ApiErrorService<ApiErrorExceptionDTO, Exception, HttpStatus> apiErrorService;
     
     @Override
     @ExceptionHandler({SQLException.class, DataAccessException.class})
