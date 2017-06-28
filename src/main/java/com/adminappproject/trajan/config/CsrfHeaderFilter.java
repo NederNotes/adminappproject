@@ -29,9 +29,9 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
                 response.addCookie(cookie);
             }
         }
-        response.setHeader("X-CSRF-HEADER", csrf.getHeaderName());
-        response.setHeader("X-CSRF-PARAM", csrf.getParameterName());
-        response.setHeader("X-CSRF-TOKEN", csrf.getToken());
+        response.setHeader("X-XSRF-HEADER", csrf.getHeaderName());
+        response.setHeader("X-XSRF-PARAM", csrf.getParameterName());
+        response.setHeader("X-XSRF-TOKEN", csrf.getToken());
         filterChain.doFilter(request, response);
     }
 }

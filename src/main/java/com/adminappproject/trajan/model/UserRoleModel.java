@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 @Entity
@@ -26,8 +27,8 @@ public class UserRoleModel extends BaseModel {
 
 	@Column(name = "description")
 	private String description;
-	
-	@Transient
+
+	@ManyToMany(mappedBy="roles")
 	private List<UserModel> users;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -67,6 +68,7 @@ public class UserRoleModel extends BaseModel {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public List<UserModel> getUsers() {
 		return users;
 	}

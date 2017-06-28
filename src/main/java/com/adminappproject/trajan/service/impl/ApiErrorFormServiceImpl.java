@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component(value = "apiErrorFormServiceImpl")
-public class ApiErrorFormServiceImpl implements ApiErrorService<ApiErrorFormDTO, Errors> {
+public class ApiErrorFormServiceImpl implements ApiErrorService<ApiErrorFormDTO, Errors, HttpStatus> {
 
 	@Override
 	public ApiErrorFormDTO compileApiErrorMsg(Errors errors, HttpStatus httpStatus) {

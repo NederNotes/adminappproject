@@ -48,12 +48,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 			Set<PermissionDTO> permissionDTOs = new HashSet<PermissionDTO>();
 
 			for(UserRoleDTO role : user.getRoles()) {
-				permissionDTOs.addAll(role.getPermissions());
+				for(PermissionDTO permissionDTO : role.getPermissions()) {
+					authorities.add(new SimpleGrantedAuthority(permissionDTO.getCode()));
+				}
 	        }
 
-			for(PermissionDTO permissionDTO : permissionDTOs) {
-				authorities.add(new SimpleGrantedAuthority(permissionDTO.getCode()));
-			}
 
 			LOGGER.debug("user authorities are " + authorities.toString());
 	        return authorities;

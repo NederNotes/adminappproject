@@ -54,10 +54,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>0.7.8</version>
@@ -107,6 +103,20 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--AspectJ-->
+		<!--<dependency>
+			<groupId>com.jcabi</groupId>
+			<artifactId>jcabi-aspects</artifactId>
+			<version>0.22.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.12</version>
+			<scope>runtime</scope>
+		</dependency>-->
+
 	</dependencies>
 
 	<build>

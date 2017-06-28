@@ -19,7 +19,7 @@ public class UserValidator implements Validator {
     private String MISSING_REQUIRED_FIELD = "err.msg.form.req.value.missing";
 
 	@Resource(name="apiErrorFormServiceImpl")
-    private ApiErrorService<ApiErrorFormDTO, Errors> apiErrorService;
+    private ApiErrorService<ApiErrorFormDTO, Errors, HttpStatus> apiErrorService;
 
     @Autowired
     private PropertiesMessageService propertiesMessageService;

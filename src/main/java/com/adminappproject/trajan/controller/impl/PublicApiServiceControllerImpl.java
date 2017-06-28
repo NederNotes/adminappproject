@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/publicApi")
 public class PublicApiServiceControllerImpl implements PublicApiServiceController {
 
+    /*TODO: implement Data Migration for client*/
     @Override
     @RequestMapping(value = "/migrateDataAndEmail", method = RequestMethod.GET)
     public ResponseEntity<String> extractAllUsersAndSettings(@RequestParam("objectType") String extractType, @RequestParam("userName") String userName) {

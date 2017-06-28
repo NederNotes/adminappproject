@@ -2,11 +2,9 @@ package com.adminappproject.trajan.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 @Entity
@@ -22,8 +20,8 @@ public class PermissionModel extends BaseModel{
 
 	@Column(name = "description")
 	private String description;
-	
-	@Transient
+
+	@ManyToMany(mappedBy="permissions")
 	private List<UserRoleModel> roles;
 	
 	public PermissionModel updateToModel(String updatedBy, DateTime updatedDate, String name, String code, String description) {
@@ -59,6 +57,7 @@ public class PermissionModel extends BaseModel{
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public List<UserRoleModel> getRoles() {
 		return roles;
 	}

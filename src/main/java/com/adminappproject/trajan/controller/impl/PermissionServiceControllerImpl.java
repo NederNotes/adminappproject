@@ -37,14 +37,14 @@ public class PermissionServiceControllerImpl implements PermissionServiceControl
 	@Override
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<PermissionDTO> create(@RequestBody PermissionDTO permissionDTO, BindingResult result) {
-		logger.info("Create permission: {}", permissionDTO);
+		logger.info("Create permission: {}", permissionDTO.getCode(), permissionDTO.getName());
 		return new ResponseEntity<PermissionDTO>(permissionServiceImpl.save(permissionDTO), HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = "/update/{permId}", method = RequestMethod.POST)
 	public ResponseEntity<PermissionDTO> update(@RequestBody PermissionDTO permissionDTO, @PathVariable("permId") Long permId) {
-		logger.info("Update permission : {}", permId, permissionDTO);
+		logger.info("Update permission : {}", permId, permissionDTO.getCode(), permissionDTO.getName());
 		return new ResponseEntity<PermissionDTO>(permissionServiceImpl.update(permissionDTO, permId), HttpStatus.OK);
 	}
 
