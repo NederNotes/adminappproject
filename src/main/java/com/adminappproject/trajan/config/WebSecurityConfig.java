@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import com.adminappproject.trajan.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -27,16 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-		builder.userDetailsService(userDetailsServiceBean());
+		builder.userDetailsService(userDetailsServiceBean())
+				.passwordEncoder(passwordEncoder());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class).httpBasic().and()
-				.csrf().ignoringAntMatchers("/login", "/publicApi/**").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+				.csrf().ignoringAntMatchers("/login").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 				.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
 				.and()
-				.authorizeRequests().antMatchers("/login","/publicApi/**").permitAll().anyRequest().fullyAuthenticated()
+				.authorizeRequests().antMatchers("/login").permitAll().anyRequest().fullyAuthenticated()
 				.and()
 				.logout().clearAuthentication(true)
 				.logoutUrl("logout")
@@ -53,4 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsServiceBean() throws Exception {
         return new CustomUserDetailsService(userService);
     }
+
+	@Bean public PasswordEncoder passwordEncoder(){
+		PasswordEncoder encoder = new BCryptPasswordEncoder(); return encoder;
+	}
 }

@@ -2,7 +2,7 @@
 <configuration>
 
 	<!--<property name="DEV_HOME" value="C:/Users/Brian.Lee/projects/adminappproject/logs" />-->
-	<property name="DEV_HOME" value="/trajan/logs" />
+	<property name="DEV_HOME" value="/home/neder-notes/documents/trajan/logs" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">

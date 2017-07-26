@@ -1,6 +1,5 @@
 package com.adminappproject.trajan.config;
 
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -13,25 +12,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Brian.Lee on 4/10/2017.
+ * Created by neder-notes on 7/26/17.
  */
 public class CsrfHeaderFilter extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,  HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         if (csrf != null) {
-            Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
-            String token = csrf.getToken();
-            if (cookie==null || token!=null && !token.equals(cookie.getValue())) {
-                cookie = new Cookie("XSRF-TOKEN", token);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-            }
+            updateCookie(request, response, "CSRF-TOKEN", csrf.getToken());
+            updateCookie(request, response, "CSRF-HEADER", csrf.getHeaderName());
         }
-        response.setHeader("X-XSRF-HEADER", csrf.getHeaderName());
-        response.setHeader("X-XSRF-PARAM", csrf.getParameterName());
-        response.setHeader("X-XSRF-TOKEN", csrf.getToken());
         filterChain.doFilter(request, response);
+    }
+
+    private void updateCookie(HttpServletRequest request, HttpServletResponse response,
+                              String cookieName, String value) {
+        Cookie cookie = WebUtils.getCookie(request, cookieName);
+        if (cookie == null || value != null && !value.equals(cookie.getValue())) {
+            cookie = new Cookie(cookieName, value);
+            cookie.setPath(request.getContextPath());
+            response.addCookie(cookie);
+        }
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
@@ -16,6 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 		"com.adminappproject.trajan.validator", "com.adminappproject.trajan.config" })
 @EnableJpaRepositories("com.adminappproject.trajan.repo")
 @EntityScan("com.adminappproject.trajan.model")
+@EnableJpaAuditing
 public class MainInstanceInitiator extends SpringBootServletInitializer {
 
 	@Override
@@ -36,7 +38,7 @@ public class MainInstanceInitiator extends SpringBootServletInitializer {
 		source.setUseCodeAsDefaultMessage(true);
 		return source;
 	}
-	
+
 	public static void main(String[] args) throws Throwable {
 		SpringApplication.run(MainInstanceInitiator.class, args);
 	}

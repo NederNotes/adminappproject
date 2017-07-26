@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component(value = "apiErrorExceptionServiceImpl")
-public class ApiErrorExceptionServiceImpl implements ApiErrorService<ApiErrorExceptionDTO, Exception> {
+public class ApiErrorExceptionServiceImpl implements ApiErrorService<ApiErrorExceptionDTO, Exception, HttpStatus> {
 
     @Override
     public ApiErrorExceptionDTO compileApiErrorMsg(Exception errors, HttpStatus httpStatus) {

@@ -8,7 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
 public abstract class BaseModel implements Serializable{
@@ -20,16 +25,20 @@ public abstract class BaseModel implements Serializable{
 	
 	@Column(name="created_date")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@CreatedDate
 	private DateTime createdDate;
 	
 	@Column(name="created_by")
+	@CreatedBy
 	private String createdBy;
 	
 	@Column(name="updated_date")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@LastModifiedDate
 	private DateTime updatedDate;
 
 	@Column(name="updated_by")
+	@LastModifiedBy
 	private String updatedBy;
 
 	public Long getId() {
